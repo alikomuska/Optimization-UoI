@@ -22,7 +22,7 @@ The power output function $E(\mathbf{\beta}, v, \theta, T, P)$ is defined as:
 $$E(\mathbf{\beta}, v, \theta, T, P) = \beta_0 v^2 + \beta_1 \sin(\theta) + \beta_2 e^{\beta_3 T} + \beta_4 \ln(P)$$
 
 Where:
-- $v$: Wind Speed ($	\text{m/sec}$)
+- $v$: Wind Speed ($ext{m/sec}$)
 - $\theta$: Wind Direction ($0^\circ - 360^\circ$)
 - $T$: Temperature ($^\circ	ext{C}$)
 - $P$: Atmospheric Pressure ($	ext{hPa}$)
