@@ -57,9 +57,60 @@ $$\min_{\mathbf{\beta} \in \mathcal{B}} 	ext{MSE}_{	ext{train}}(\mathbf{\beta}) 
 
 ---
 
-## 📊 Experimental Results & Statistics
+## 📊 Results & Statistics
 
-### Performance Summary (Training & Convergence)
+The algorithms were evaluated using **30 independent runs**, with a maximum of approximately **100,000 function evaluations per run**. The main metric was the Mean Squared Error (MSE), where lower values indicate a better fit.
+
+### Training Results
+
+| Algorithm | Mean MSE | Median MSE | Std. Dev. | Best MSE |
+|---|---:|---:|---:|---:|
+| Newton Trust Region | 129.315 | 108.418 | 20.544 | **108.418** |
+| BFGS + Wolfe | 1207.914 | **108.395** | 3868.506 | **108.395** |
+| Nelder–Mead | 110.135 | **108.395** | 9.441 | **108.395** |
+| Genetic Algorithm | 111.080 | 110.590 | **1.690** | 108.790 |
+| PSO | — | — | — | — |
+
+BFGS and Nelder–Mead achieved the lowest training MSE, both reaching approximately **108.4**. However, the large standard deviation of BFGS shows that its results were much less consistent across runs. Nelder–Mead produced considerably more stable results, with a standard deviation of **9.44**. The Genetic Algorithm was also highly consistent, with a standard deviation of only **1.69**.
+
+> **Note:** PSO was implemented, but the full statistical experiment was not completed because the experiments took too long to run.
+
+### Generalization on Unseen Data
+
+The best solution obtained by each algorithm was evaluated on a separate **fifth day of previously unseen data**.
+
+| Algorithm | Test MSE |
+|---|---:|
+| Newton Trust Region | 74.381 |
+| BFGS + Wolfe | 74.712 |
+| Nelder–Mead | 74.730 |
+| Genetic Algorithm | **73.093** |
+| PSO | — |
+
+Interestingly, the **Genetic Algorithm achieved the best test MSE (73.093)** even though it did not achieve the best training MSE. This shows that the best optimization result on the training data does not necessarily provide the best generalization to unseen data.
+
+### Statistical Significance
+
+To determine whether the differences between algorithms were statistically significant, pairwise **Wilcoxon rank-sum tests** were performed using a significance level of **0.05**.
+
+| Comparison | p-value |
+|---|---:|
+| NewtonTR vs BFGS | 0.6015 |
+| NewtonTR vs Nelder–Mead | 0.2506 |
+| NewtonTR vs GA | 0.3472 |
+| BFGS vs Nelder–Mead | 0.1745 |
+| BFGS vs GA | 0.3472 |
+| Nelder–Mead vs GA | 0.6015 |
+
+All p-values are above 0.05, meaning that **no statistically significant difference was found between the tested algorithms**.
+
+### Key Results
+
+- **Best training MSE:** BFGS and Nelder–Mead — **108.395**
+- **Most consistent algorithm:** Genetic Algorithm — **1.69 standard deviation**
+- **Best test MSE:** Genetic Algorithm — **73.093**
+- **No statistically significant differences** were found between the tested algorithms.
+- The results demonstrate that **training performance and generalization performance can differ significantly**.
 
 
 
