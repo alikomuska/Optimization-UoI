@@ -11,7 +11,7 @@ A comprehensive benchmark and analytical study on mathematical optimization algo
 
 ## 📌 Project Overview
 
-Accurate short-term wind power prediction (24-hour horizon) is critical for modern power grid management and renewable energy integration into the European power grid (EU Renewable Energy Directive 2023/2413). 
+Accurate short-term wind power prediction is critical for modern power grid management and renewable energy integration into the European power grid (EU Renewable Energy Directive 2023/2413). 
 
 This project optimizes a 5-parameter parametric model connecting atmospheric readings to power output ($E$) measured at 10-minute intervals across 4 training days (576 samples) and evaluates generalization on a 5th unseen test day (144 samples).
 
@@ -24,9 +24,9 @@ $$E(\mathbf{\beta}, v, \theta, T, P) = \beta_0 v^2 + \beta_1 \sin(\theta) + \bet
 Where:
 - $v$: Wind Speed (${m/sec}$)
 - $\theta$: Wind Direction ($0^\circ - 360^\circ$)
-- $T$: Temperature ($^\circ	ext{C}$)
-- $P$: Atmospheric Pressure ($	ext{hPa}$)
-- $\mathbf{\beta} = [\beta_0, \beta_1, \beta_2, \beta_3, \beta_4] \in \mathcal{B}$: Model parameter vector.
+- $T$: Temperature ($^\circ	{C}$)
+- $P$: Atmospheric Pressure ($hPa$)
+- $\mathbf{\beta} = [\beta_0, \beta_1, \beta_2, \beta_3, \beta_4] $: Model parameter vector.
 
 ### Search Space Bounds $(\mathcal{B})$
 
@@ -43,7 +43,6 @@ $$\min_{\mathbf{\beta} \in \mathcal{B}} 	ext{MSE}_{	ext{train}}(\mathbf{\beta}) 
 ### Key Algorithmic & Implementation Highlights
 - **Exact Analytical Derivatives:** Derived complete 1st order gradients ($\nabla 	ext{MSE}$) and 2nd order Hessian matrices ($\nabla^2 	ext{MSE}$) for exact Newton and BFGS computations.
 - **Penalty Functions:** Quadratic penalty terms $P(\mathbf{\beta})$ integrated to handle boundary constraints effectively during line searches and trust region updates.
-- **Normalized Domain Search ($\tilde{\mathcal{B}} = [0, 1]^5$):** Scaled parameter dimensions to prevent gradient ill-conditioning due to scale disparities across variables.
 - **Benchmark Protocol:** 30 independent runs per algorithm starting from standardized initial points, capped at $N_{	ext{max}} = 100,000$ function evaluations per run.
 
 ---
@@ -100,39 +99,6 @@ A pairwise Wilcoxon rank-sum test at significance level $lpha = 0.05$ was condu
 | **NewtonTR vs NelderMead** | $0.2506$ | $pprox$ | No statistically significant difference |
 | **BFGSWolfe vs NelderMead** | $0.1745$ | $pprox$ | No statistically significant difference |
 | **GA vs NelderMead / BFGS** | $0.3472$ | $pprox$ | Statistically comparable solution quality |
-
----
-
-## 📁 Repository Structure
-
-```text
-.
-├── data/
-│   ├── data_train.txt       # 576 samples (Days 1-4)
-│   ├── data_test.txt        # 144 samples (Day 5)
-│   └── initial_points.txt   # 30 standardized initial parameter vectors
-├── src/
-│   ├── functions.py         # Objective function, analytical gradients & Hessians
-│   ├── newton_tr.py         # Newton Trust Region with Dogleg solver
-│   ├── bfgs.py              # Quasi-Newton BFGS implementation
-│   ├── nelder_mead.py       # Nelder-Mead Simplex solver
-│   ├── ga.py                # Genetic Algorithm implementation
-│   └── pso.py               # Particle Swarm Optimization implementation
-├── outputs/
-│   ├── output_*_train.txt   # Optimization logs per algorithm
-│   └── output_test.txt      # Day 5 generalization test results
-├── report.pdf               # Detailed academic report (Greek)
-└── README.md                # Project documentation
-```
-
----
-
-## 👤 Author
-
-**Aliko Muska**  
-Student AM: 4427  
-Department of Computer Science and Engineering  
-University of Ioannina  
 
 ---
 *Developed for the Optimization (MYE008) course, Academic Year 2024–2025.*
