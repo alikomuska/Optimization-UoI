@@ -85,7 +85,7 @@ Optimal model parameters were evaluated on unseen Day 5 test data ($144$ time st
 | **BFGSWolfe** | 74.71 | Robust Generalization |
 | **NelderMead** | 74.73 | Robust Generalization |
 
-> **Key Finding:** While gradient/quasi-Newton methods (BFGS) achieved rapid training convergence, population-based evolutionary approaches (GA) provided slightly superior generalization performance on unseen test data ($	ext{MSE}_{	ext{test}} = 73.09$).
+
 
 ---
 
