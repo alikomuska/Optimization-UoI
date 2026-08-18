@@ -61,44 +61,6 @@ $$\min_{\mathbf{\beta} \in \mathcal{B}} 	ext{MSE}_{	ext{train}}(\mathbf{\beta}) 
 
 ### Performance Summary (Training & Convergence)
 
-All metrics are calculated over 30 independent runs ($N_{	ext{max}} = 100,000$ budget):
-
-| Algorithm | Mean $f_{	ext{best}}$ (MSE) | Median $f_{	ext{best}}$ | Min $f_{	ext{best}}$ | Mean Budget Spent (`last-hit`) | Convergence Speed |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **BFGSWolfe** | **1207.91** | **108.40** | **108.40** | **2,467 evaluations** | **⚡ Ultra Fast** |
-| **NelderMead** | 110.14 | 108.40 | 108.40 | 100,005 evaluations | 🐢 Slow (Exhausted Budget) |
-| **GA** | 111.08 | 110.59 | 108.79 | 100,026 evaluations | 🐢 Slow (Exhausted Budget) |
-| **NewtonTR** | 129.32 | 7123.98* | 108.42 | 99,996 evaluations | ⚠️ Local minima sensitive |
-
-*Note: BFGS with Wolfe line search demonstrated outstanding speed, converging to optimal solutions (~108.40 MSE) in under 2,500 function evaluations on average.*
-
----
-
-### Generalization Performance (Test Set Evaluation)
-
-Optimal model parameters were evaluated on unseen Day 5 test data ($144$ time steps):
-
-| Algorithm Model | Test MSE ($	ext{MSE}_{	ext{test}}$) | Performance vs Train |
-| :--- | :---: | :--- |
-| **GA** | **73.09** | **Best Generalization** |
-| **NewtonTR** | 74.38 | Excellent Generalization |
-| **BFGSWolfe** | 74.71 | Robust Generalization |
-| **NelderMead** | 74.73 | Robust Generalization |
 
 
-
----
-
-### Statistical Significance (Wilcoxon Rank-Sum Test)
-
-A pairwise Wilcoxon rank-sum test at significance level $lpha = 0.05$ was conducted across the 30 runs:
-
-| Pairwise Comparison | $p$-value | Result | Significance |
-| :--- | :---: | :---: | :--- |
-| **NewtonTR vs BFGSWolfe** | $0.6015$ | $pprox$ | No statistically significant difference |
-| **NewtonTR vs NelderMead** | $0.2506$ | $pprox$ | No statistically significant difference |
-| **BFGSWolfe vs NelderMead** | $0.1745$ | $pprox$ | No statistically significant difference |
-| **GA vs NelderMead / BFGS** | $0.3472$ | $pprox$ | Statistically comparable solution quality |
-
----
 *Developed for the Optimization (MYE008) course, Academic Year 2024–2025.*
